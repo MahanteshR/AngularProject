@@ -3,7 +3,8 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
 import {BehaviorSubject, Subject, throwError} from 'rxjs';
 import {User} from './user.model';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {environment} from '../../environments/environment';
 
 export interface AuthResponseData {
   idToken: string;
@@ -24,7 +25,7 @@ export class AuthService {
 
   signUp(emailWeb: string, passwordWeb: string) {
     // tslint:disable-next-line:max-line-length
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDLXSI8YsCb8BLT4Q8Sb2OUiDdN2agVdeQ',
+    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIKey,
       {
         email: emailWeb,
         password: passwordWeb,
@@ -37,7 +38,7 @@ export class AuthService {
   login(emailWeb: string, passwordWeb: string) {
     // tslint:disable-next-line:max-line-length
     return this.http.post<AuthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDLXSI8YsCb8BLT4Q8Sb2OUiDdN2agVdeQ',
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseAPIKey,
       {
         email: emailWeb,
         password: passwordWeb,
